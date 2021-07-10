@@ -51,7 +51,8 @@ parcellite &
 redshift-gtk -t 6500:5000 &
 
 # remove idle mouse
-unclutter &
+
+unclutter -noevents -idle 2.5 &
 
 # kdeconnect
 export $(dbus-launch)

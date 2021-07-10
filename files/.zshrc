@@ -275,9 +275,6 @@ function preexec(){
 . lwd load
 # [ ! -z $last_wd_file ] && cd "`cat $last_wd_file`"
 
-# execute tmuxkd to kill detached sessions so there ar only 5 of them
-[ -z $TMUX ] || tmuxkd 5
-
 # starting window title
 # print -Pn "\e]0;`pwd`\a" 
 # echo  -ne "\033k`pwd`\033\\"

@@ -345,10 +345,10 @@ autocmd BufNew,BufRead *.c,*.cpp setlocal foldmethod=indent
 autocmd BufNew,BufRead *.vim setlocal foldmethod=marker
 
 " no nested folds
-set foldlevel=1
+set foldlevel=99
 
 " unfold on jump
-set foldopen+=jump,search
+set foldopen+=jump,search,block,hor
 
 " FastFold base config
 let g:fastfold_savehook = 1
@@ -554,8 +554,8 @@ inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
                               \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 "" use `lp` and `ln` for navigate diagnostics
-nmap <silent> <leader>[d <plug>(coc-diagnostic-prev)
-nmap <silent> <leader>]d <plug>(coc-diagnostic-next)
+nmap <silent> <leader>[d <plug>(coc-diagnostic-prev)h
+nmap <silent> <leader>]d <plug>(coc-diagnostic-next)h
 
 "" remap keys for gotos
 nmap <silent> gd <plug>(coc-definition)
@@ -575,7 +575,7 @@ vnoremap <silent><nowait><expr> <C-u> coc#float#has_scroll() ? coc#float#scroll(
 
 "" Mappings for CoCList
 """ Show all diagnostics.
-nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
+nnoremap <silent><nowait> <space>e  :<C-u>CocList diagnostics<cr>
 """ Manage extensions.
 nnoremap <silent><nowait> <space>ce  :<C-u>CocList extensions<cr>
 """ Show commands.
@@ -590,6 +590,11 @@ nnoremap <silent><nowait> <space>cj  :<C-u>CocNext<CR>
 nnoremap <silent><nowait> <space>ck  :<C-u>CocPrev<CR>
 """ Resume latest coc list.
 nnoremap <silent><nowait> <space>cr  :<C-u>CocListResume<CR>
+
+"" move to
+nmap <silent> [e <Plug>(coc-diagnostic-prev)
+nmap <silent> ]e <Plug>(coc-diagnostic-next)
+nmap <silent> ge <Plug>(coc-diagnostic-next)
 
 "" use <leader>d for show documentation in preview window
 nnoremap <silent> <leader>d :call <sid>show_documentation()<cr>

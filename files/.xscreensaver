@@ -1,8 +1,8 @@
 # XScreenSaver Preferences File
-# Written by xscreensaver-demo 5.42 for fede on Sat Jun 26 04:28:57 2021.
+# Written by xscreensaver-demo 5.42 for fede on Sat Jul 10 02:05:21 2021.
 # https://www.jwz.org/xscreensaver/
 
-timeout:	0:30:00
+timeout:	1:30:00
 cycle:		0:05:00
 lock:		False
 lockTimeout:	0:00:00
