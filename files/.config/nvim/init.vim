@@ -11,6 +11,7 @@ let g:neovide_transparency=0.94
 
 " Compile .tex
 autocmd BufEnter *.tex VimtexCompile
+let g:vimtex_view_general_viewer = 'okular'
 
 "spellcheck
 set spelllang=en,es
