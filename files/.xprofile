@@ -42,7 +42,7 @@ udiskie --tray &
 xscreensaver -no-splash &
 
 # Notification
-dunst &
+# dunst &
 
 # clipboard
 parcellite &
