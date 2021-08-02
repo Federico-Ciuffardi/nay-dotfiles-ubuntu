@@ -3,33 +3,27 @@
 """"""""
 "{{{
 
-
-" neovide
-let g:neovide_cursor_antialiasing=v:true
-let g:neovide_refresh_rate=60
-let g:neovide_transparency=0.94
-
-" Compile .tex
-autocmd BufEnter *.tex VimtexCompile
-let g:vimtex_view_general_viewer = 'okular'
-
-"spellcheck
-set spelllang=en,es
-autocmd BufNew,BufRead,BufNewFile /tmp/neomutt-* setlocal spell
-autocmd BufNew,BufRead,BufNewFile *.md set spell
-
-" limit the width of text to 72 characters when editing a mail on neomutt
-autocmd BufNew,BufRead,BufNewFile /tmp/neomutt-* set tw=72
-
-" horizontal line
-set colorcolumn=90
-
 " misc 
 set autoindent
 set smarttab
 set incsearch
 set scrolloff=8
 set ignorecase 
+
+"spellcheck
+set spelllang=en,es
+autocmd BufNew,BufRead,BufNewFile /tmp/neomutt-* setlocal spell
+autocmd BufNew,BufRead,BufNewFile *.md set spell
+
+" Compile .tex
+autocmd BufEnter *.tex VimtexCompile
+let g:vimtex_view_general_viewer = 'okular'
+
+" limit the width of text to 72 characters when editing a mail on neomutt
+autocmd BufNew,BufRead,BufNewFile /tmp/neomutt-* set tw=72
+
+" vertical line mark
+set colorcolumn=90
 
 " refresh on file changes
 "" Triger `autoread` when files changes on disk
@@ -74,13 +68,6 @@ set splitbelow
 set splitright
 
 set equalalways
-
-" function! s:SetWindowsToEqualWidths()
-"   let restoreCommands = split(winrestcmd(), '|')
-"   let heightCommands = filter(restoreCommands, { idx, cmd -> cmd =~# '^\d\+resize' })
-"   wincmd =
-"   execute join(heightCommands, '|')
-" endfunction
 
 augroup AutomaticWindowSizing
   autocmd!
@@ -148,10 +135,46 @@ vnoremap g$ $
 vnoremap g0 0
 vnoremap g^ ^
 
-" enhanced diff
-" if has("patch-8.1.0360")
-"     set diffopt+=internal,algorithm:patience
-" endif
+" Better Y
+nnoremap Y y$
+
+" Keep n N centered
+nnoremap n nzzzv
+nnoremap N Nzzzv
+
+function! CenterSearch()
+  let cmdtype = getcmdtype()
+  if cmdtype == '/' || cmdtype == '?'
+    return "\<enter>zz"
+  endif
+  return "\<enter>"
+endfunction
+
+cnoremap <silent> <expr> <enter> CenterSearch()
+
+" Undo break points
+  " inoremap , ,<C-g>u
+  " inoremap . .<C-g>u
+  " inoremap [ [<C-g>u
+  " inoremap ! !<C-g>u
+  " inoremap ? ?<C-g>u
+inoremap <Space> <Space><C-g>u
+
+" Moving text
+vnoremap<silent> <C-K> :m '<-2<CR>gv=gv
+vnoremap<silent> <C-J> :m '>+1<CR>gv=gv
+inoremap<silent> <C-K> <esc>:m .-2<CR>==i
+inoremap<silent> <C-J> <esc>:m .+1<CR>==i
+nnoremap<silent> <C-K> :m .-2<CR>==
+nnoremap<silent> <C-J> :m .+1<CR>==
+
+" Word replace
+nnoremap cn *``cgn
+nnoremap cN *``cgN
+
+" Quotes arround visual
+vnoremap " <esc>`>a"<esc>`<i"<esc>
+
 
 "}}}
 
@@ -535,11 +558,11 @@ inoremap <silent><expr> <tab>
       \ coc#refresh()
 inoremap <expr><s-tab> pumvisible() ? "\<c-p>" : "\<c-h>"
 
-inoremap <silent><expr> <c-j>
-      \ pumvisible() ? "\<c-n>" :
-      \ <sid>check_back_space() ? "\<c-j>" :
-      \ coc#refresh()
-inoremap <expr><c-k> pumvisible() ? "\<c-p>" : "\<c-k>"
+" inoremap <silent><expr> <c-j>
+"       \ pumvisible() ? "\<c-n>" :
+"       \ <sid>check_back_space() ? "\<c-j>" :
+"       \ coc#refresh()
+" inoremap <expr><c-k> pumvisible() ? "\<c-p>" : "\<c-k>"
 
 function! s:check_back_space() abort
   let col = col('.') - 1
@@ -724,10 +747,10 @@ nnoremap M J
 nmap <silent> <C-w>- :sp<CR>
 nmap <silent> <C-w>\ :vsp<CR>
 
-nnoremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K>
-nnoremap <C-L> <C-W><C-L>
-nnoremap <C-H> <C-W><C-H>
+" nnoremap <C-J> <C-W><C-J>
+" nnoremap <C-K> <C-W><C-K>
+" nnoremap <C-L> <C-W><C-L>
+" nnoremap <C-H> <C-W><C-H>
 
 " correct next
 nmap zz ]sz=
@@ -742,7 +765,14 @@ augroup END
 
 "}}}
 
-" GUI font
+"""""""
+" GUI "
+"""""""
+"{{{
+let g:neovide_cursor_antialiasing=v:true
+let g:neovide_refresh_rate=60
+let g:neovide_transparency=0.94
+
 set guifont=Source\ Code\ Pro:h16
 nnoremap <C-+> :silent! let &guifont = substitute(
  \ &guifont,
@@ -759,3 +789,4 @@ nnoremap <C-)> :silent! let &guifont = substitute(
  \ ':h\zs\d\+',
  \ '\=eval(16)',
  \ '')<CR>
+"}}}
