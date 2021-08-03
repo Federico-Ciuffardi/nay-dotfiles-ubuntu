@@ -495,7 +495,7 @@ nnoremap <leader>gb :GBranch<cr>
 """""""""""
 "{{{
 
-let g:vimwiki_list = [{'path': '~/.local/share/vimwiki'}]
+let g:vimwiki_list = [{'path': '~/.local/share/vimwiki', 'syntax': 'markdown'}]
 command TODO :F TODO ~/.local/share/vimwiki/* <cr>
 
 "}}}
