@@ -280,4 +280,3 @@ function preexec(){
 # echo  -ne "\033k`pwd`\033\\"
 
 source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-

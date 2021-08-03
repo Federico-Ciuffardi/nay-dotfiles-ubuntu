@@ -15,8 +15,10 @@ export WM="dwm"
 # export STATUSBAR="polybar"
 
 ## Path
-export MY_BIN=$HOME/bin
-export PATH="$PATH:$MY_BIN/misc:$HOME/.cabal/bin"
+export MY_BIN="$HOME/bin/misc"
+export UUR_BIN="$HOME/bin/uur/"
+export CABAL_BIN="$HOME/.cabal/bin"
+export PATH="$PATH:$MY_BIN:$CABAL_BIN:$UUR_BIN"
 
 ### AUX PATHS
 export DMENU_BIN=$MY_BIN/dmenu

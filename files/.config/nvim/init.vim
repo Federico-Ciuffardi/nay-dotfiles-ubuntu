@@ -163,8 +163,8 @@ inoremap <Space> <Space><C-g>u
 " Moving text
 vnoremap<silent> <C-K> :m '<-2<CR>gv=gv
 vnoremap<silent> <C-J> :m '>+1<CR>gv=gv
-inoremap<silent> <C-K> <esc>:m .-2<CR>==i
-inoremap<silent> <C-J> <esc>:m .+1<CR>==i
+" inoremap<silent> <C-K> <esc>:m .-2<CR>==i
+" inoremap<silent> <C-J> <esc>:m .+1<CR>==i
 nnoremap<silent> <C-K> :m .-2<CR>==
 nnoremap<silent> <C-J> :m .+1<CR>==
 
@@ -558,11 +558,11 @@ inoremap <silent><expr> <tab>
       \ coc#refresh()
 inoremap <expr><s-tab> pumvisible() ? "\<c-p>" : "\<c-h>"
 
-" inoremap <silent><expr> <c-j>
-"       \ pumvisible() ? "\<c-n>" :
-"       \ <sid>check_back_space() ? "\<c-j>" :
-"       \ coc#refresh()
-" inoremap <expr><c-k> pumvisible() ? "\<c-p>" : "\<c-k>"
+inoremap <silent><expr> <c-j>
+      \ pumvisible() ? "\<c-n>" :
+      \ <sid>check_back_space() ? "\<c-j>" :
+      \ coc#refresh()
+inoremap <expr><c-k> pumvisible() ? "\<c-p>" : "\<c-k>"
 
 function! s:check_back_space() abort
   let col = col('.') - 1
