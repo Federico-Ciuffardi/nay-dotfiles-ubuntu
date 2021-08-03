@@ -13,7 +13,7 @@ set ignorecase
 "spellcheck
 set spelllang=en,es
 autocmd BufNew,BufRead,BufNewFile /tmp/neomutt-* setlocal spell
-autocmd BufNew,BufRead,BufNewFile *.md set spell
+" autocmd BufNew,BufRead,BufNewFile *.md set spell
 
 " Compile .tex
 autocmd BufEnter *.tex VimtexCompile
