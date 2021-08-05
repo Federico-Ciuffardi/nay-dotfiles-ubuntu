@@ -1,7 +1,9 @@
 # vim: filetype=neomuttrc
 source /usr/local/share/mutt-wizard/mutt-wizard.muttrc
 source /home/fede/.config/mutt/accounts/1-federico.ciuffardi@outlook.com.muttrc
+# source /home/fede/.config/mutt/accounts/2-fciuffardi@fing.edu.uy.muttrc
 macro index,pager i1 '<sync-mailbox><enter-command>source /home/fede/.config/mutt/accounts/1-federico.ciuffardi@outlook.com.muttrc<enter><change-folder>!<enter>;<check-stats>' "switch to federico.ciuffardi@outlook.com"
+macro index,pager i2 '<sync-mailbox><enter-command>source /home/fede/.config/mutt/accounts/2-fciuffardi@fing.edu.uy.muttrc<enter><change-folder>=INBOX<enter>;<check-stats>' "switch to fciuffardi@fing.edu.uy"
 
 ############
 # Configs  #
@@ -12,7 +14,7 @@ set sort = threads
 set sort_aux = reverse-last-date-received
 set fast_reply=yes
 set include=yes
-alternates federico.ciuffardi@outlook.com|federico.ciuffardi@fing.edu.uy
+alternates federico.ciuffardi@outlook.com|federico.ciuffardi@fing.edu.uy|fciuffardi@fing.edu.uy
 macro compose A "<shell-escape>bash $HOME/.config/mutt/filepicker<enter><enter-command>source $HOME/.config/mutt/tmpfile<enter><shell-escape>bash $HOME/.config/mutt/filepicker clean<enter>" "Attach with your file manager"
 
 ################
@@ -103,5 +105,3 @@ color index_number  default             default
 
 color status          color15 color8
 color sidebar_divider color8 color8 
-
-
