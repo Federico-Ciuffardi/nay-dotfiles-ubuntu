@@ -97,3 +97,6 @@
 .mbsyncrc 664 fede fede
 .config/msmtp/config 664 fede fede
 .config/mutt/accounts/2-fciuffardi@fing.edu.uy.muttrc 664 fede fede
+.config/ncmpcpp/bindings 664 fede fede
+.config/ncmpcpp/config 664 fede fede
+.config/mpd/mpd.conf 664 fede fede
