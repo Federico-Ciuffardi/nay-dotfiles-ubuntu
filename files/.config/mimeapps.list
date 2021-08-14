@@ -53,3 +53,4 @@ application/atom+xml=firefox.desktop;
 x-scheme-handler/tg=userapp-Telegram Desktop-FV7TZ0.desktop;
 application/pdf=org.kde.okular.desktop
 image/jpeg=okularApplication_kimgio.desktop;
+application/x-bittorrent=org.qbittorrent.qBittorrent.desktop;

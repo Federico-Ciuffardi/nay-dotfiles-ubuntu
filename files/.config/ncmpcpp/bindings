@@ -188,7 +188,11 @@ def_key "R"
 def_key "r"
   toggle_random
 
+def_key "]"
+  next
 
+def_key "["
+  previous
 
 #def_key "mouse"
 #  mouse_event

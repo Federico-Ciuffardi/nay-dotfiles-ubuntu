@@ -192,6 +192,8 @@ endif
 
 call plug#begin('~/.config/nvim/plugged')
 
+Plug 'chrisbra/Colorizer'
+
 Plug 'honza/vim-snippets'
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
