@@ -32,10 +32,10 @@ autocmd WinEnter,FocusGained,BufEnter,CursorHold,CursorHoldI *
 
 "" Notification after file change
 autocmd FileChangedShellPost *
-        \ echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
+        \  echo "File updated." | echohl None
 
-" tab char
 set tabstop=2
+" tab char
 set shiftwidth=2
 set expandtab
 
@@ -88,12 +88,13 @@ nmap J :bnext<cr>
 autocmd BufEnter * if (winnr("$") == 0) | q | endif
 
 "" quit closes buffer
+set confirm
 function! CondQuit()
   if len(getbufinfo({'buflisted':1})) == 1
-    silent! execute "q"
+    execute "q"
   else
     if len(tabpagebuflist()) > 1
-      silent! execute "q"
+      execute "q"
     else
       silent! execute "bd"
     endif
@@ -145,7 +146,7 @@ nnoremap N Nzzzv
 function! CenterSearch()
   let cmdtype = getcmdtype()
   if cmdtype == '/' || cmdtype == '?'
-    return "\<enter>zz"
+    return "\<enter>zzzv"
   endif
   return "\<enter>"
 endfunction
@@ -366,15 +367,20 @@ let g:comfortable_motion_air_drag = 1.0
 """""""""""""""""""""
 "{{{
 
-" set the fold method by filename
-autocmd BufNew,BufRead *.c,*.cpp setlocal foldmethod=indent
-autocmd BufNew,BufRead *.vim setlocal foldmethod=marker
-
 " no nested folds
-set foldlevel=99
+set foldnestmax=1
+
+" default to marks
+set foldmethod=marker
 
 " unfold on jump
-set foldopen+=jump,search,block,hor
+set foldopen+=block,hor,insert,jump,mark,search,tag,undo
+
+" set the fold method by filename
+autocmd BufNew,BufRead *.c,*.cpp setlocal foldmethod=indent
+autocmd BufNew,BufRead *.py setlocal foldmethod=indent
+autocmd BufNew,BufRead *.vim setlocal foldmethod=marker
+autocmd BufEnter * silent! normal zO
 
 " FastFold base config
 let g:fastfold_savehook = 1
@@ -382,15 +388,16 @@ let g:fastfold_fold_command_suffixes =  ['x','X','a','A','o','O','c','C']
 let g:fastfold_fold_movement_commands = [']z', '[z', 'zj', 'zk']
 
 " Bindings
-"" update
-nmap zuz <Plug>(FastFoldUpdate)
-nnoremap L zO
-nnoremap H zC
-nnoremap <leader><leader> zA
+"" toggle fold with L or H
+nnoremap L zA
+nnoremap H zA
+"" close fold with H and open with L
+" nnoremap L zO
+" nnoremap H zC
+
+"" fold all with zF and unfold all with zF
 nnoremap zU zR
 nnoremap zF zM
- " zM - fold all 
-" zR - unfold all 
 
 "}}}
 
@@ -425,9 +432,9 @@ let g:undotree_SetFocusWhenToggle = 1
 "{{{
 
 " Config
-" Open on almost full screen
-"let g:fzf_layout = { 'tmux': '-d100%' }
+"" Open on almost full screen
 let g:fzf_layout = { 'window': { 'width': 1, 'height': 1 } }
+let g:fzf_buffers_jump = 1
 
 "" BLines with preview
 command! -bang -nargs=* BLines
@@ -435,10 +442,11 @@ command! -bang -nargs=* BLines
     \   'rg --with-filename --column --line-number --no-heading --smart-case . '.fnameescape(expand('%:p')), 1,
     \   fzf#vim#with_preview({'options': '--keep-right --delimiter : --nth 4.. --preview "bat -p --color always {}"'}, 'right:60%' ))
 
-" Bindings
+"" Bindings
 let g:fzf_action = {
   \ 'ctrl-h': 'split',
-  \ 'ctrl-v': 'vsplit' }
+  \ 'ctrl-v': 'vsplit', 
+  \ 'ctrl-l': 'e'}
 
 let $FZF_DEFAULT_OPTS='--bind=ctrl-d:preview-down,ctrl-u:preview-up'
 
