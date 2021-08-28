@@ -275,6 +275,7 @@ function source_ros1(){
 
 function source_ros2(){ 
   [ -f "/opt/ros/foxy/setup.zsh" ] && source "/opt/ros/foxy/setup.zsh"
+  [ -f "$ROS2WS/install/setup.zsh" ] && source "$ROS2WS/install/setup.zsh"
 }
 
 # GHCUP
