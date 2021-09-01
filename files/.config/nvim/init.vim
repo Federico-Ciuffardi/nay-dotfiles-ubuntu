@@ -154,11 +154,11 @@ endfunction
 cnoremap <silent> <expr> <enter> CenterSearch()
 
 " Undo break points
-  " inoremap , ,<C-g>u
-  " inoremap . .<C-g>u
-  " inoremap [ [<C-g>u
-  " inoremap ! !<C-g>u
-  " inoremap ? ?<C-g>u
+inoremap , ,<C-g>u
+inoremap . .<C-g>u
+inoremap [ [<C-g>u
+inoremap ! !<C-g>u
+inoremap ? ?<C-g>u
 inoremap <Space> <Space><C-g>u
 
 " Moving text
@@ -172,10 +172,6 @@ nnoremap<silent> <C-J> :m .+1<CR>==
 " Word replace
 nnoremap cn *``cgn
 nnoremap cN *``cgN
-
-" Quotes arround visual
-vnoremap " <esc>`>a"<esc>`<i"<esc>
-
 
 "}}}
 
@@ -231,8 +227,6 @@ Plug 'Konfekt/FastFold'
 Plug 'easymotion/vim-easymotion'
 
 Plug 'mhinz/vim-startify'
-
-" Plug 'jiangmiao/auto-pairs'
 
 Plug 'yuttie/comfortable-motion.vim'
 
@@ -345,14 +339,10 @@ let g:mkdp_filetypes = ['markdown']
 
 "}}}
 
-""""""""""""""
-" Auto pairs "
-""""""""""""""
-"{{{
-
-" autocmd BufNew,BufRead *.vim let g:AutoPairs = {'(':')', '[':']', "'":"'", "`":"`"}
-
-"}}}
+""""""""""""""""
+" vim-surround "
+""""""""""""""""
+vmap ' S
 
 """"""""""""""""""""""
 " Confortable motion "
@@ -379,6 +369,7 @@ set foldopen+=block,hor,insert,jump,mark,search,tag,undo
 " set the fold method by filename
 autocmd BufNew,BufRead *.c,*.cpp setlocal foldmethod=indent
 autocmd BufNew,BufRead *.py setlocal foldmethod=indent
+autocmd BufNew,BufRead *.pas setlocal foldmethod=indent
 autocmd BufNew,BufRead *.vim setlocal foldmethod=marker
 autocmd BufEnter * silent! normal zO
 
@@ -726,7 +717,7 @@ command! -nargs=1 -complete=file Diff :vertical diffsplit <args>
 " Copy Cut Paste
 vnoremap <C-C> "+y
 vnoremap <C-X> "+x
-noremap  <C-V> "+P
+nnoremap <C-V> "+gP
 inoremap <C-V> <C-O>"+P
 "" preserve clipboard on pasting
 vnoremap p     pgvy
@@ -800,3 +791,13 @@ nnoremap <C-)> :silent! let &guifont = substitute(
  \ '\=eval(16)',
  \ '')<CR>
 "}}}
+
+
+"""""""
+" TMP "
+"""""""
+set relativenumber!
+set foldnestmax=5
+
+nnoremap L zo
+nnoremap H zc

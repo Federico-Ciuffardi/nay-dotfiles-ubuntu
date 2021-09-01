@@ -197,7 +197,7 @@
 :root {
   --navbar-transition-delay: 0.2s;
   --navbar-transition-duration: 135ms;
-  --nav-bar-margin: calc(-1 * (var(--proton-tab-block-margin) + var(--tab-min-height)));
+  --nav-bar-margin: calc(-1*var(--tab-min-height));
 }
 
 :root:not([uidensity]) {

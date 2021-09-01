@@ -379,9 +379,9 @@ def_key "b"
 #def_key "X"
 #  set_crossfade
 #
-#def_key "u"
-#  update_database
-#
+def_key "ctrl-r"
+  update_database
+
 #def_key "ctrl-s"
 #  sort_playlist
 #
