@@ -796,8 +796,8 @@ nnoremap <C-)> :silent! let &guifont = substitute(
 """""""
 " TMP "
 """""""
-set relativenumber!
-set foldnestmax=5
+" set relativenumber!
+" set foldnestmax=5
 
-nnoremap L zo
-nnoremap H zc
+" nnoremap L zo
+" nnoremap H zc
