@@ -101,3 +101,4 @@
 .config/ncmpcpp/config 664 fede fede
 .config/mpd/mpd.conf 664 fede fede
 .local/share/nvim/site/autoload/plug.vim.old 664 fede fede
+.config/rofi/flat.rasi 664 fede fede

@@ -3,21 +3,30 @@
 ###########
 #{{{
 
-source /usr/share/zsh-antigen/antigen.zsh
+if [ ! -f "$HOME/.zinit/bin/zinit.zsh" ]; then
+    print -P "%F{33}▓▒░ %F{220}Installing zinit…%f"
+    command mkdir -p $HOME/.zinit
+    command git clone https://github.com/zdharma/zinit $HOME/.zinit/bin && \
+        print -P "%F{33}▓▒░ %F{34}Installation successful.%F" || \
+        print -P "%F{160}▓▒░ The clone has failed.%F"
+fi
 
-antigen bundle "unixorn/autoupdate-antigen.zshplugin"
+source "$HOME/.zinit/bin/zinit.zsh"
 
-antigen bundle "MichaelAquilina/zsh-you-should-use"
+zinit ice wait lucid
+zinit light "kutsan/zsh-system-clipboard"
 
-antigen bundle "kutsan/zsh-system-clipboard"
-# antigen bundle "Federico-Ciuffardi/zsh-system-clipboard"
+zinit ice wait lucid
+zinit light "zsh-users/zsh-completions"
 
-antigen bundle "zsh-users/zsh-completions"
-antigen bundle "zsh-users/zsh-autosuggestions"
+zinit ice wait"0a" lucid atload"_zsh_autosuggest_start"
+zinit light zsh-users/zsh-autosuggestions
 
-antigen apply
+zinit ice wait lucid
+zinit light zdharma/fast-syntax-highlighting
 
 #}}}
+
 
 ###########
 # General #
@@ -28,11 +37,11 @@ antigen apply
 export TERM="st-256color" # otherwise it defaults to screen when using `zsh -is`
 
 # GPG Agent
-GPG_TTY=`tty`
-export GPG_TTY
+# GPG_TTY=`tty`
+# export GPG_TTY
 
 # Set autocd
-setopt autocd
+# setopt autocd
 
 # FZF
 export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
@@ -305,14 +314,5 @@ fi
 # starting window title
 ## print -Pn "\e]0;`pwd`\a" 
 ## echo  -ne "\033k`pwd`\033\\"
-
-#}}}
-
-#######################################
-# Plugin at the end to avoid Conflict #
-#######################################
-#{{{
-
-source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 #}}}
