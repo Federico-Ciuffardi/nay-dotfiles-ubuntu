@@ -19,7 +19,7 @@ zinit light "kutsan/zsh-system-clipboard"
 zinit ice wait lucid
 zinit light "zsh-users/zsh-completions"
 
-zinit ice wait"0a" lucid atload"_zsh_autosuggest_start"
+zinit ice wait lucid atload"_zsh_autosuggest_start"
 zinit light zsh-users/zsh-autosuggestions
 
 zinit ice wait lucid

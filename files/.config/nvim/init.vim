@@ -166,13 +166,18 @@ vnoremap<silent> <C-K> :m '<-2<CR>gv=gv
 vnoremap<silent> <C-J> :m '>+1<CR>gv=gv
 " inoremap<silent> <C-K> <esc>:m .-2<CR>==i
 " inoremap<silent> <C-J> <esc>:m .+1<CR>==i
-nnoremap<silent> <C-K> :m .-2<CR>==
-nnoremap<silent> <C-J> :m .+1<CR>==
+" nnoremap<silent> <C-K> :m .-2<CR>==
+" nnoremap<silent> <C-J> :m .+1<CR>==
 
 " Word replace
 nnoremap cn *``cgn
 nnoremap cN *``cgN
 
+" W
+set breakindent
+set breakindentopt=shift:2
+" set showbreak=\\\\\
+" set showbreak=↳
 "}}}
 
 """""""""""""""""""""
@@ -228,7 +233,7 @@ Plug 'easymotion/vim-easymotion'
 
 Plug 'mhinz/vim-startify'
 
-Plug 'yuttie/comfortable-motion.vim'
+Plug 'Federico-Ciuffardi/comfortable-motion.vim'
 
 Plug 'tpope/vim-abolish'
 
@@ -342,10 +347,14 @@ let g:mkdp_filetypes = ['markdown']
 """"""""""""""""
 " vim-surround "
 """"""""""""""""
+"{{{
+
 vmap ' S
 
+"}}}
+
 """"""""""""""""""""""
-" Confortable motion "
+" comfortable motion "
 """"""""""""""""""""""
 "{{{
 let g:comfortable_motion_friction = 165.0
@@ -791,13 +800,3 @@ nnoremap <C-)> :silent! let &guifont = substitute(
  \ '\=eval(16)',
  \ '')<CR>
 "}}}
-
-
-"""""""
-" TMP "
-"""""""
-" set relativenumber!
-" set foldnestmax=5
-
-" nnoremap L zo
-" nnoremap H zc

@@ -33,7 +33,7 @@ configuration {
 //	Transparent colors
 //	Dark Plus
 	fg: #ffffff;
-	fg-dark: #ffffff55;
+	fg-dark: #aaaaaa;
 	fg-highlight: #ffffff;
 	bg: #25252655;
 	bg-highlight: #264f78aa;
