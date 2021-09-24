@@ -9,6 +9,7 @@ set smarttab
 set incsearch
 set scrolloff=8
 set ignorecase 
+set noswapfile
 
 "spellcheck
 set spelllang=en,es
@@ -539,7 +540,6 @@ let g:coc_global_extensions = [
 
 "" don't give |ins-completion-menu| messages.
 set shortmess+=c
-
 " always show signcolumns
 set signcolumn=yes
 
