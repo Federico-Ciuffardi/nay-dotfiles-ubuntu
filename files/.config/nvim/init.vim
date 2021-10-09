@@ -464,8 +464,6 @@ nnoremap <leader>m  :Maps<cr>
 nnoremap <leader>?  :Helptags<cr>
 nnoremap <leader>b  :Buffers<cr>
 
-"}}}
-
 """"""""""""""""
 " fzf-checkout "
 """"""""""""""""
