@@ -39,7 +39,7 @@ pulseaudio &
 udiskie --tray &
 
 # Screensaver
-xscreensaver -no-splash &
+# xscreensaver -no-splash &
 
 # Notification
 # dunst &
