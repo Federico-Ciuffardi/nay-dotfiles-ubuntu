@@ -245,6 +245,20 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
 call plug#end()
 "}}}
 
+""""""""""""
+" Startify "
+""""""""""""
+"{{{
+
+let g:startify_lists = [
+      \ { 'type': 'dir',       'header': [ '   ' .getcwd(),'' ,'   Recent Files '] },
+      \ { 'type': 'sessions',  'header': ['   Sessions']       },
+      \ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
+      \ { 'type': 'commands',  'header': ['   Commands']       },
+      \ ]
+
+"}}}
+
 """"""""""""""""""""
 " Markdown preview "
 """"""""""""""""""""
@@ -463,6 +477,8 @@ nnoremap <leader>gC :Commits<cr>
 nnoremap <leader>m  :Maps<cr>
 nnoremap <leader>?  :Helptags<cr>
 nnoremap <leader>b  :Buffers<cr>
+
+"}}}
 
 """"""""""""""""
 " fzf-checkout "
