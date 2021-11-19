@@ -393,7 +393,7 @@ set foldopen+=block,hor,insert,jump,mark,search,tag,undo
 " set the fold method by filename
 autocmd BufNew,BufRead *.c,*.cpp setlocal foldmethod=indent
 autocmd BufNew,BufRead *.py setlocal foldmethod=indent
-autocmd BufNew,BufRead *.pas setlocal foldmethod=indent
+autocmd BufNew,BufRead *.pas setlocal foldmethod=marker
 autocmd BufNew,BufRead *.vim setlocal foldmethod=marker
 autocmd BufEnter * silent! normal zO
 
@@ -534,6 +534,9 @@ command TODO :F TODO ~/.local/share/vimwiki/* <cr>
 " shortcut for far.vim replace
 nnoremap <silent> <leader>r :Farr<cr>
 vnoremap <silent> <leader>r :Farr<cr>
+
+" nnoremap <silent> <C-S-F> :Farf<cr>
+" vnoremap <silent> <C-S-F> :Farf<cr>
 
 "}}}
 
