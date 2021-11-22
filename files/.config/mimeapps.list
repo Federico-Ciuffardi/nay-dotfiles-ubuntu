@@ -55,3 +55,4 @@ application/pdf=org.kde.okular.desktop
 image/jpeg=okularApplication_kimgio.desktop;
 application/x-bittorrent=org.qbittorrent.qBittorrent.desktop;
 video/webm=mpv.desktop;
+application/vnd.oasis.opendocument.text=okularApplication_ooo.desktop;gimp.desktop;
