@@ -26,7 +26,7 @@ export WM="dwm"
 export MY_BIN="$HOME/bin"
 export UUR_BIN="$HOME/bin/uur/"
 export CABAL_BIN="$HOME/.cabal/bin"
-export PATH="$PATH:$MY_BIN/misc:$CABAL_BIN:$UUR_BIN"
+export PATH="$PATH:$MY_BIN/misc:$CABAL_BIN:$UUR_BIN:$HOME/.local/bin"
 
 # others
 export DMENU_BIN=$MY_BIN/dmenu
