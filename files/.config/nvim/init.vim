@@ -56,7 +56,9 @@ set clipboard=unnamedplus
 set startofline
 
 " Enable autocompletion:
-set wildmode=longest,list,full
+set wildoptions+=pum
+set wildmode=longest:full,full
+" set wildmode=longest,list,full
 
 " Disables automatic commenting on newline:
 augroup NoCommentOnNewLine 
