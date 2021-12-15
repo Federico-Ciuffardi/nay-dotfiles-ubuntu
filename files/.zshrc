@@ -57,7 +57,7 @@ else
 fi
 
 # Man pager
-export MANPAGER="nvim +'nnoremap <leader>f :Lines<cr>' +'set laststatus=0' +'set ft=man' -"
+# export MANPAGER="nvim +'nnoremap <leader>f :Lines<cr>' +'set laststatus=0' +'set ft=man' -"
 
 # Less delay on escape
 KEYTIMEOUT=1
