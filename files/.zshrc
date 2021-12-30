@@ -312,7 +312,6 @@ fi
 . lwd load
 
 # starting window title
-## print -Pn "\e]0;`pwd`\a" 
-## echo  -ne "\033k`pwd`\033\\"
+print -Pn "\e]0;`pwd`\a" 
 
 #}}}
