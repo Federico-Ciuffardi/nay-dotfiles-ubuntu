@@ -313,5 +313,4 @@ fi
 
 # starting window title
 print -Pn "\e]0;`pwd`\a" 
-
 #}}}

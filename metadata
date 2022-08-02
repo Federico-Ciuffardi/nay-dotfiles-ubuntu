@@ -61,7 +61,7 @@
 .config/tridactyl/tridactylrc 644
 .config/urlscan/config.json 644
 .config/user-dirs.dirs 600
-.config/wallpaper 644
+.config/wallpaper 664
 .config/xmobar/trayer-padding-icon.sh 755
 .config/xmobar/xmobarrc0 755
 .config/xmobar/xmobarrc1 755

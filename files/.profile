@@ -23,9 +23,9 @@ export WM="dwm"
 #{{{
 
 # bin lookup
-export MY_BIN="$HOME/bin"
+export MY_BIN="$HOME/.local/share/mybin"
 export CABAL_BIN="$HOME/.cabal/bin"
-export PATH="$PATH:$MY_BIN/misc:$CABAL_BIN:$HOME/.local/bin"
+export PATH="$PATH:$MY_BIN/path:$CABAL_BIN:$HOME/.local/bin"
 
 # others
 export DMENU_BIN=$MY_BIN/dmenu
