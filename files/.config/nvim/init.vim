@@ -3,42 +3,34 @@
 """"""""
 "{{{
 
-" misc 
+" space as leader
+noremap <Space> <Nop>
+let mapleader = "\<Space>"
+
+" misc
+set nocompatible
+syntax on
+"" set noswapfile
+"" filetype plugin on
+
+" indentation
 set autoindent
 set smarttab
-set incsearch
-set scrolloff=8
-set ignorecase 
-set noswapfile
-
-"spellcheck
-set spelllang=en,es
-autocmd BufNew,BufRead,BufNewFile /tmp/neomutt-* setlocal spell
-autocmd BufNew,BufRead,BufNewFile *.tex set spell
-
-" Compile .tex
-autocmd BufEnter *.tex VimtexCompile
-let g:vimtex_view_general_viewer = 'okular'
-
-" limit the width of text to 72 characters when editing a mail on neomutt
-autocmd BufNew,BufRead,BufNewFile /tmp/neomutt-* set tw=72
-
-" vertical line mark
-set colorcolumn=90
-
-" refresh on file changes
-"" Triger `autoread` when files changes on disk
-autocmd WinEnter,FocusGained,BufEnter,CursorHold,CursorHoldI *
-        \ if mode() !~ '\v(c|r.?|!|t)' && getcmdwintype() == '' | checktime | endif
-
-"" Notification after file change
-autocmd FileChangedShellPost *
-        \  echo "File updated." | echohl None
-
 set tabstop=2
-" tab char
 set shiftwidth=2
 set expandtab
+set breakindent
+set breakindentopt=shift:2
+
+" search
+set incsearch
+" set ignorecase 
+
+" movement
+set scrolloff=8
+
+" vertical line mark
+set colorcolumn=80
 
 " Mouse support
 set mouse=a
@@ -55,10 +47,26 @@ set clipboard=unnamedplus
 " move to start of the line
 set startofline
 
+" limit the width of text to 72 characters when editing a mail on neomutt
+autocmd BufNew,BufRead,BufNewFile /tmp/neomutt-* set tw=72
+
+"spellcheck
+set spelllang=en,es
+autocmd BufNew,BufRead,BufNewFile /tmp/neomutt-* setlocal spell
+autocmd BufNew,BufRead,BufNewFile *.Tex set spell
+
+" refresh on file changes
+"" Triger `autoread` when files changes on disk
+autocmd WinEnter,FocusGained,BufEnter,CursorHold,CursorHoldI *
+        \ if mode() !~ '\v(c|r.?|!|t)' && getcmdwintype() == '' | checktime | endif
+
+"" Notification after file change
+autocmd FileChangedShellPost *
+        \  echo "File updated." | echohl None
+
 " Enable autocompletion:
 set wildoptions+=pum
 set wildmode=longest:full,full
-" set wildmode=longest,list,full
 
 " Disables automatic commenting on newline:
 augroup NoCommentOnNewLine 
@@ -82,10 +90,10 @@ augroup END
 set hidden
 
 "" Go to the previous buffer open
-nmap K :bprev<cr>
+noremap K :bprev<cr>
 
 "" Go to the next buffer open
-nmap J :bnext<cr>
+noremap J :bnext<cr>
 
 "" close on no buffer
 autocmd BufEnter * if (winnr("$") == 0) | q | endif
@@ -108,11 +116,13 @@ if !exists('g:vscode')
   nnoremap <silent> q :call CondQuit()<CR>
 endif
 
-noremap <S-Q> q
+" marks and others
+nnoremap m q
+nnoremap M m
+nnoremap gm `
 
-" space as leader
-noremap <Space> <Nop>
-let mapleader = "\<Space>"
+" J to M
+nnoremap H J
 
 " swap g<command> and <command> 
 nnoremap j gj
@@ -164,23 +174,13 @@ inoremap ! !<C-g>u
 inoremap ? ?<C-g>u
 inoremap <Space> <Space><C-g>u
 
-" Moving text
-vnoremap<silent> <C-K> :m '<-2<CR>gv=gv
-vnoremap<silent> <C-J> :m '>+1<CR>gv=gv
-" inoremap<silent> <C-K> <esc>:m .-2<CR>==i
-" inoremap<silent> <C-J> <esc>:m .+1<CR>==i
-" nnoremap<silent> <C-K> :m .-2<CR>==
-" nnoremap<silent> <C-J> :m .+1<CR>==
-
 " Word replace
 nnoremap cn *``cgn
 nnoremap cN *``cgN
 
-" W
-set breakindent
-set breakindentopt=shift:2
-" set showbreak=\\\\\
-" set showbreak=↳
+" improve command line
+nnoremap <C-;> :<C-f>i
+
 "}}}
 
 """""""""""""""""""""
@@ -195,56 +195,86 @@ if empty(glob(data_dir . '/autoload/plug.vim'))
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
+" Declare used plugins
 call plug#begin('~/.config/nvim/plugged')
 
-Plug 'chrisbra/Colorizer'
-
-Plug 'honza/vim-snippets'
-
+"" programming related
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-
-Plug 'josa42/coc-sh', {'do': 'yarn install --frozen-lockfile'}
-
 Plug 'lervag/vimtex'
+Plug 'habamax/vim-godot'
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
 
-" Plug 'puremourning/vimspector'
-
+"" Visual
 Plug 'Federico-Ciuffardi/vim-code-dark'
 Plug 'bling/vim-airline'
+Plug 'chrisbra/Colorizer'
 
+"" Search and/or replace
 Plug 'brooth/far.vim'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'stsewd/fzf-checkout.vim'
 
+"" Integration
+""" tmux
+Plug 'christoomey/vim-tmux-navigator'
+""" git
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
+Plug 'rhysd/conflict-marker.vim'
 
+"" Operators, Motions and Commands
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
+Plug 'easymotion/vim-easymotion'
+Plug 'tpope/vim-abolish'
+Plug 'tpope/vim-unimpaired'
 
-Plug 'lambdalisue/suda.vim'
-
-Plug 'vimwiki/vimwiki'
-
+"" Undo, Swap, and fold
 Plug 'mbbill/undotree'
 Plug 'chrisbra/recover.vim'
 Plug 'zhimsel/vim-stay'
 Plug 'Konfekt/FastFold'
 
-Plug 'easymotion/vim-easymotion'
-
+"" Misc
+""" Start Screen
 Plug 'mhinz/vim-startify'
-
+""" Notes
+Plug 'vimwiki/vimwiki'
+""" Smooth motion
 Plug 'Federico-Ciuffardi/comfortable-motion.vim'
-
-Plug 'tpope/vim-abolish'
-
-Plug 'tpope/vim-unimpaired'
-
-Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
+""" Save as sudo
+Plug 'lambdalisue/suda.vim'
+""" Root on porjects
+Plug 'airblade/vim-rooter'
 
 call plug#end()
+"}}}
+
+"""""""""""""
+" Comentary "
+"""""""""""""
+"{{{
+autocmd FileType vimwiki setlocal commentstring=<!---\ %s\ -->
+"}}}
+
+""""""""""
+" Rooter "
+""""""""""
+"{{{
+" \*.c,*.h,
+" \*.cpp,*.hpp
+" \*.gd
+let g:rooter_targets = '*'
+
+let g:rooter_patterns = ['.git']
+"}}}
+
+""""""""""""""
+" Easymotion "
+""""""""""""""
+"{{{
+map \ <Plug>(easymotion-prefix)
 "}}}
 
 """"""""""""
@@ -371,9 +401,16 @@ vmap ' S
 "}}}
 
 """"""""""""""""""""""
-" comfortable motion "
+" confortable motion "
 """"""""""""""""""""""
 "{{{
+let g:comfortable_motion_no_default_key_mappings = 1
+nnoremap <silent> <C-d> :call comfortable_motion#flick(100)<CR>
+nnoremap <silent> <C-u> :call comfortable_motion#flick(-100)<CR>
+
+" merged with coc scroll
+" nnoremap <silent> <C-f> :call comfortable_motion#flick(200)<CR>
+" nnoremap <silent> <C-b> :call comfortable_motion#flick(-200)<CR>
 let g:comfortable_motion_friction = 165.0
 let g:comfortable_motion_air_drag = 1.0
 "}}}
@@ -391,12 +428,13 @@ set foldmethod=marker
 
 " unfold on jump
 set foldopen+=block,hor,insert,jump,mark,search,tag,undo
+" set foldclose
 
 " set the fold method by filename
 autocmd BufNew,BufRead *.c,*.cpp setlocal foldmethod=indent
 autocmd BufNew,BufRead *.py setlocal foldmethod=indent
-autocmd BufNew,BufRead *.pas setlocal foldmethod=marker
-autocmd BufNew,BufRead *.vim setlocal foldmethod=marker
+" autocmd BufNew,BufRead *.md setlocal foldopen=all
+" autocmd BufNew,BufRead *.md setlocal foldclose=all
 autocmd BufEnter * silent! normal zO
 
 " FastFold base config
@@ -407,7 +445,7 @@ let g:fastfold_fold_movement_commands = [']z', '[z', 'zj', 'zk']
 " Bindings
 "" toggle fold with L or H
 nnoremap L zA
-nnoremap H zA
+" nnoremap H zA
 "" close fold with H and open with L
 " nnoremap L zO
 " nnoremap H zC
@@ -459,15 +497,16 @@ command! -bang -nargs=* BLines
     \   'rg --with-filename --column --line-number --no-heading --smart-case . '.fnameescape(expand('%:p')), 1,
     \   fzf#vim#with_preview({'options': '--keep-right --delimiter : --nth 4.. --preview "bat -p --color always {}"'}, 'right:60%' ))
 
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case ".shellescape(<q-args>), 1,
+  \   fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}), <bang>0)
+
 "" Bindings
 let g:fzf_action = {
   \ 'ctrl-h': 'split',
   \ 'ctrl-v': 'vsplit', 
   \ 'ctrl-l': 'e'}
 
-let $FZF_DEFAULT_OPTS='--bind=ctrl-d:preview-down,ctrl-u:preview-up'
-
-nnoremap <leader>p  :Files<cr>
 nnoremap <C-P>      :Files<cr>
 nnoremap <leader>;  :Commands<cr>
 nnoremap <leader>f  :BLines<cr>
@@ -486,7 +525,6 @@ nnoremap <leader>b  :Buffers<cr>
 " fzf-checkout "
 """"""""""""""""
 "{{{
-let $FZF_DEFAULT_OPTS='--reverse'
 let g:fzf_branch_actions = {
       \ 'rebase': {
       \   'prompt': 'Rebase> ',
@@ -517,21 +555,10 @@ nnoremap <leader>gb :GBranch<cr>
 
 "}}}
 
-"""""""""""
-" vimwiki "
-"""""""""""
-"{{{
-
-let g:vimwiki_list = [{'path': '~/.local/share/vimwiki', 'syntax': 'markdown', 'ext': '.md'}]
-command TODO :F TODO ~/.local/share/vimwiki/* <cr>
-
-"}}}
-
 """""""
 " far "
 """""""
 "{{{
-
 
 " shortcut for far.vim replace
 nnoremap <silent> <leader>r :Farr<cr>
@@ -547,40 +574,24 @@ vnoremap <silent> <leader>r :Farr<cr>
 """""""
 "{{{
 
-" Config
-    " \ 'coc-highlight',
-    " \ 'coc-sh',
-    " \ 'coc-clangd',
+"" coc extensions
 let g:coc_global_extensions = [
-      \ 'coc-python',
+      \ 'coc-clangd',
+      \ 'coc-pyright',
       \ 'coc-vimtex',
       \ 'coc-snippets',
+      \ 'coc-rust-analyzer',
+      \ 'coc-sh',
       \ ]
 
 "" don't give |ins-completion-menu| messages.
 set shortmess+=c
-" always show signcolumns
+"" always show signcolumns
 set signcolumn=yes
 
-"" Highlight symbol under cursor on CursorHold
-" autocmd CursorHold * silent call CocActionAsync('highlight')
-" Update signature help on jump placeholder.
-autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+"" Bindings
 
-" Commands
-"" Add `:Format` command to format current buffer.
-command! -nargs=0 Format :call CocAction('format')
-
-"" Add `:Fold` command to fold current buffer.
-command! -nargs=? Fold :call     CocAction('fold', <f-args>)
-
-"" Add `:OR` command for organize imports of the current buffer.
-command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
-
-
-" Bindings
-
-"" Navigate autocompletion
+""" Navigate autocompletion with tab, s-tab, c-j and c-k
 inoremap <silent><expr> <tab>
       \ pumvisible() ? "\<c-n>" :
       \ <sid>check_back_space() ? "\<tab>" :
@@ -598,71 +609,74 @@ function! s:check_back_space() abort
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
-"" Use <c-space> to trigger/complete completion.
+""" Use <c-space> to trigger/complete completion.
 inoremap <silent><expr> <c-space> pumvisible() ? coc#_select_confirm() : coc#refresh()
 
-"" Make <CR> auto-select the first completion item and notify coc.nvim to
-"" format on enter, <cr> could be remapped by other vim plugin
+""" Make <CR> auto-select the first completion item and notify coc.nvim to
+""" format on enter, <cr> could be remapped by other vim plugin
 inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
                               \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
-"" use `lp` and `ln` for navigate diagnostics
-nmap <silent> <leader>[d <plug>(coc-diagnostic-prev)h
-nmap <silent> <leader>]d <plug>(coc-diagnostic-next)h
+""" navigate diagnostics
+nmap <silent> [e <Plug>(coc-diagnostic-prev)
+nmap <silent> ]e <Plug>(coc-diagnostic-next)
+nmap <silent> ge <Plug>(coc-diagnostic-next)
 
-"" remap keys for gotos
+""" remap keys for gotos
 nmap <silent> gd <plug>(coc-definition)
 nmap <silent> gy <plug>(coc-type-definition)
 nmap <silent> gi <plug>(coc-implementation)
 nmap <silent> gr <plug>(coc-references)
 
-"" Remap <C-d> and <C-u> for scroll float windows/popups.
-nnoremap <silent><nowait><expr> <C-d> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-d>"
-nnoremap <silent><nowait><expr> <C-u> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-u>"
-
-inoremap <silent><nowait><expr> <C-d> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
-inoremap <silent><nowait><expr> <C-u> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
-
-vnoremap <silent><nowait><expr> <C-d> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-d>"
-vnoremap <silent><nowait><expr> <C-u> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-u>"
-
-"" Mappings for CoCList
-""" Show all diagnostics.
-nnoremap <silent><nowait> <space>e  :<C-u>CocList diagnostics<cr>
-""" Manage extensions.
-nnoremap <silent><nowait> <space>ce  :<C-u>CocList extensions<cr>
-""" Show commands.
-nnoremap <silent><nowait> <space>cc  :<C-u>CocList commands<cr>
-""" Find symbol of current document.
-nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
-""" Search workspace symbols.
-nnoremap <silent><nowait> <space>s  :<C-u>CocList -I symbols<cr>
-""" Do default action for next item.
-nnoremap <silent><nowait> <space>cj  :<C-u>CocNext<CR>
-""" Do default action for previous item.
-nnoremap <silent><nowait> <space>ck  :<C-u>CocPrev<CR>
-""" Resume latest coc list.
-nnoremap <silent><nowait> <space>cr  :<C-u>CocListResume<CR>
-
-"" move to
-nmap <silent> [e <Plug>(coc-diagnostic-prev)
-nmap <silent> ]e <Plug>(coc-diagnostic-next)
-nmap <silent> ge <Plug>(coc-diagnostic-next)
-
-"" use <leader>d for show documentation in preview window
+""" use <leader>d for show documentation in preview window
 nnoremap <silent> <leader>d :call <sid>show_documentation()<cr>
 
 function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  elseif (coc#rpc#ready())
+  if CocAction('hasProvider', 'hover')
     call CocActionAsync('doHover')
   else
-    execute '!' . &keywordprg . " " . expand('<cword>')
+    call feedkeys('K', 'in')
   endif
 endfunction
 
-" close hover
+""" Highlight the symbol and its references when holding the cursor.
+" autocmd CursorHold * silent call CocActionAsync('highlight')
+
+""" Symbol renaming.
+nmap <leader>R <Plug>(coc-rename)
+
+" Formatting selected code.
+nnoremap <expr> = CocHasProvider('format') ? "<Plug>(coc-format-selected)" : "="
+xnoremap <expr> = CocHasProvider('format') ? "<Plug>(coc-format-selected)" : "="
+vnoremap <expr> = CocHasProvider('format') ? "<Plug>(coc-format-selected)" : "="
+
+""" Remap <C-d> and <C-u> for scroll float windows/popups.
+nmap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : ":call comfortable_motion#flick(200)<CR>"
+nmap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : ":call comfortable_motion#flick(-200)<CR>"
+imap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+imap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+vmap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : ":call comfortable_motion#flick(200)<CR>"
+vmap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : ":call comfortable_motion#flick(-200)<CR>"
+
+""" Mappings for CoCList
+"""" Find symbol of current document.
+nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
+"""" Show all diagnostics.
+nnoremap <silent><nowait> <space>e  :<C-u>CocList diagnostics<cr>
+"""" Search workspace symbols.
+nnoremap <silent><nowait> <space>s  :<C-u>CocList -I symbols<cr>
+"""" Manage extensions.
+nnoremap <silent><nowait> <space>cx  :<C-u>CocList extensions<cr>
+"""" Show commands.
+nnoremap <silent><nowait> <space>cc  :<C-u>CocList commands<cr>
+"""" Do default action for next item.
+nnoremap <silent><nowait> <space>cj  :<C-u>CocNext<CR>
+"""" Do default action for previous item.
+nnoremap <silent><nowait> <space>ck  :<C-u>CocPrev<CR>
+"""" Resume latest coc list.
+nnoremap <silent><nowait> <space>cr  :<C-u>CocListResume<CR>
+
+""" close hover
 nmap <silent><Esc> :call coc#float#close_all() <CR>
 nmap <silent><C-C> :call coc#float#close_all() <CR>
 
@@ -675,6 +689,26 @@ nmap <silent><C-C> :call coc#float#close_all() <CR>
 
 " :nnoremap <C-E> :CocCommand explorer<CR>
 " autocmd BufEnter * if (winnr("$") == 1 &&  &filetype == 'coc-explorer') | q | endif
+
+"}}}
+
+""""""""""
+" vimtex "
+""""""""""
+"{{{
+
+let g:vimtex_quickfix_ignore_filters = [
+      \ 'Underfull',
+      \ 'Overfull',
+      \ 'Package beamerthememetropolis',
+      \ 'Unused global option',
+      \ 'Package hyperref Warning: Token not allowed in a PDF string (Unicode):',
+      \]
+
+" Compile .tex
+autocmd BufEnter *.tex VimtexCompile
+let g:vimtex_view_general_viewer = 'okular'
+let g:vimtex_view_enabled = 0
 
 "}}}
 
@@ -716,7 +750,6 @@ set t_Co=256
 set t_ut=
 colorscheme codedark
 set noshowmode
-syntax on " syntax highlighting on
 
 let t:is_transparent = 0
 function! Toggle_transparent_background()
@@ -736,11 +769,43 @@ hi Normal guibg=#1E1E1E
 highlight Folded gui=bold guibg=#1E1E1E guifg=#5E5E5E
 "}}}
 
+"""""""""""
+" vimwiki "
+"""""""""""
+"{{{
+
+let g:vimwiki_list = [{'path': '~/.local/share/vimwiki', 'syntax': 'markdown', 'ext': '.md'}]
+
+hi VimwikiHeader1 cterm=bold ctermfg=39
+hi VimwikiHeader2 cterm=bold ctermfg=75
+hi VimwikiHeader3 cterm=bold ctermfg=81
+hi VimwikiHeader4 cterm=bold ctermfg=117
+hi VimwikiHeader5 cterm=bold ctermfg=159
+hi VimwikiHeader6 cterm=bold ctermfg=195
+
+hi VimwikiList cterm=bold ctermfg=255
+hi VimwikiHeaderChar cterm=bold ctermfg=252
+
+" hi VimwikiLink cterm=underline ctermfg=195 guifg=#52B6FF gui=underline
+
+let g:vimwiki_folding = 'custom'
+
+command TODO :F TODO ~/.local/share/vimwiki/* <cr>
+
+let g:vimwiki_listsyms = ' .🕙x'
+let g:vimwiki_markdown_link_ext = 1
+"}}}
+
 """""""""
 " Maps "
 """""""""
 "{{{
 command! -nargs=1 -complete=file Diff :vertical diffsplit <args>
+" taskell
+command! Taskell :terminal 'taskell' '%:p:h/tasks.md'
+autocmd TermOpen * startinsert
+autocmd TermClose * :bd
+nnoremap <leader>t :Taskell<CR>
 
 " Copy Cut Paste
 vnoremap <C-C> "+y
@@ -769,17 +834,12 @@ inoremap <C-A> <C-O>^i
 inoremap <C-E> <C-O>$a
 inoremap <C-C> <ESC>
 
-" 
-nnoremap M J
+" double esc removes hl
+nmap <ESC><ESC> :silent! nohl<CR>
 
 " splits
 nmap <silent> <C-w>- :sp<CR>
 nmap <silent> <C-w>\ :vsp<CR>
-
-" nnoremap <C-J> <C-W><C-J>
-" nnoremap <C-K> <C-W><C-K>
-" nnoremap <C-L> <C-W><C-L>
-" nnoremap <C-H> <C-W><C-H>
 
 " correct next
 nmap zz ]sz=
@@ -802,20 +862,41 @@ let g:neovide_cursor_antialiasing=v:true
 let g:neovide_refresh_rate=60
 let g:neovide_transparency=0.94
 
-set guifont=Source\ Code\ Pro:h16
-nnoremap <C-+> :silent! let &guifont = substitute(
+set guifont=FiraCode\ Nerd\ Font\ Mono:h13
+nnoremap <silent> <C-+> :let &guifont = substitute(
  \ &guifont,
  \ ':h\zs\d\+',
  \ '\=eval(submatch(0)+1)',
  \ '')<CR>
-nnoremap <C-_> :silent! let &guifont = substitute(
+nnoremap <silent> <C-_> :let &guifont = substitute(
  \ &guifont,
  \ ':h\zs\d\+',
  \ '\=eval(submatch(0)-1)',
  \ '')<CR>
-nnoremap <C-)> :silent! let &guifont = substitute(
+nnoremap <silent> <C-)> :let &guifont = substitute(
  \ &guifont,
  \ ':h\zs\d\+',
- \ '\=eval(16)',
+ \ '\=eval(13)',
  \ '')<CR>
 "}}}
+
+"""""""""""""""""""
+" conflict marker "
+"""""""""""""""""""
+"{{{
+" disable the default highlight group
+let g:conflict_marker_highlight_group = ''
+
+" Include text after begin and end markers
+let g:conflict_marker_begin = '^<<<<<<< \@='
+let g:conflict_marker_common_ancestors = '^||||||| .*$'
+let g:conflict_marker_separator = '^=======$'
+let g:conflict_marker_end   = '^>>>>>>> \@='
+
+highlight ConflictMarkerBegin ctermbg=34 
+highlight ConflictMarkerOurs ctermbg=22  
+highlight ConflictMarkerTheirs ctermbg=27 
+highlight ConflictMarkerEnd ctermbg=39 
+highlight ConflictMarkerCommonAncestorsHunk ctermbg=yellow
+"}}}
+
